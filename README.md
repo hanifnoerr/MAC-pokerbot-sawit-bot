@@ -6,7 +6,7 @@ Our team's submission to the Monash Association of Coding poker bot competition,
 
 **Local agent name:** `Belief payoff fixed v2 - all opponents`
 
-**Submitted candidate:** [belief-payoff-fixed-v2.zip](dist/belief-payoff-fixed-v2.zip) · [source code](agents/belief-payoff-fixed-v2-all-opponents/)
+**Submitted agent:** [belief-payoff-fixed-v2.zip](dist/belief-payoff-fixed-v2.zip) · [source code](agents/belief-payoff-fixed-v2-all-opponents/)
 
 ## Competition information
 

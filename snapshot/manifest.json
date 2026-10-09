@@ -1,0 +1,17 @@
+{
+  "snapshot_date": "2026-10-09",
+  "registered_before_exclusions": 64,
+  "published_agents": 58,
+  "excluded_agents": 6,
+  "runs": 104,
+  "run_statuses": {
+    "completed": 93,
+    "cancelled": 10,
+    "interrupted": 1
+  },
+  "game_histories": 6764,
+  "worker_logs": 6776,
+  "winner_id": "c4409b3444614790891998ddcaf2474b",
+  "excluded_opponents": "Names and results retained; code and registration omitted pending teammates consent.",
+  "history_scope": "Saved local game histories and stderr; engine request files, working copies and private workspace excluded."
+}

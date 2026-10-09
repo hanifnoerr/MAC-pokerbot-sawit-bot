@@ -1,0 +1,15 @@
+{
+  "checked_on": "2026-10-09",
+  "platform": "Windows",
+  "python": "3.12.15",
+  "numpy": "2.5.3",
+  "macpoker": "0.1.0",
+  "fresh_requirements_install": "passed",
+  "full_snapshot_restore": {"agents": 58, "runs": 104, "game_histories": 6764},
+  "automated_tests": {"dashboard": 13, "release_integrity_and_privacy": 3, "failures": 0},
+  "publication_scan": {"payloads_including_archive_members": 867, "private_path_or_credential_pattern_findings": 0},
+  "api_checks": ["registry and run counts", "winning download content hash", "withheld agent returns 404", "100-hand historical replay"],
+  "browser_check": "Restored dashboard displayed 58 agents, 93 completed runs, and historical results",
+  "winning_agent_smoke": {"players": 4, "games": 4, "hands_per_game": 5, "subprocess": true, "verdict": "OK"},
+  "scope": "Packaging, restoration and runtime checks; the smoke game is not a strength evaluation. Other operating systems were not run."
+}

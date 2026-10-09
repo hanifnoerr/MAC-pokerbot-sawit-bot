@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Poker Arena · Agent Lab</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#overview"><span class="brand-mark">♠</span><span>POKER<span class="brand-sub">ARENA / AGENT LAB</span></span></a>
+    <div class="nav-label">WORKSPACE</div>
+    <nav aria-label="Main navigation">
+      <a href="#overview">◈ <span>Overview</span></a>
+      <a href="#rankings">▤ <span>Leaderboard</span></a>
+      <a href="#agents">♧ <span>Agent registry</span></a>
+      <a href="#queue">◷ <span>Run queue</span></a>
+    </nav>
+    <div class="sidebar-note"><span class="eyebrow">LOCAL DEVELOPMENT</span><p>Test a hypothesis.<br>Play it out.<br>Learn from every hand.</p><span class="muted">Official SDK · Your machine</span></div>
+  </aside>
+  <main id="overview">
+    <header class="topbar"><span>Workspace <span class="muted">/</span> Agent testing</span><span id="connection" class="connection" role="status">Connecting…</span></header>
+    <div class="page-heading"><div><p class="eyebrow">THE EXPERIMENT STARTS HERE</p><h1>Your agents. At the table.</h1><p class="muted">Benchmark strategies, compare versions, and inspect every decision.</p></div><a class="button primary" href="#launch">＋ New run</a></div>
+    <div id="state-error" class="notice error" role="alert" hidden></div>
+    <section class="stats" aria-label="Workspace statistics">
+      <article class="stat"><span>Registered agents</span><strong id="stat-agents">—</strong><small>Ready for the next experiment</small></article>
+      <article class="stat"><span>Active & queued</span><strong id="stat-active">—</strong><small>Persistent local run queue</small></article>
+      <article class="stat"><span>Completed runs</span><strong id="stat-complete">—</strong><small>Explore results below</small></article>
+      <article class="stat accent"><span>Benchmark hands</span><strong id="stat-hands">—</strong><small>Across the selected profile</small></article>
+    </section>
+    <section class="panel" id="evaluation" aria-label="Live training evaluation" hidden></section>
+    <section class="panel" id="rankings">
+      <div class="panel-heading"><div><p class="eyebrow">MEASURE WHAT MATTERS</p><h2>Benchmark leaderboard</h2></div><label class="inline-label">Profile<select id="profile"><option value="default">Default</option></select></label></div>
+      <p class="profile-note">Latest completed result per version, with matching seeds, hands, and opponents. Set wins include ties. Use several seeds to check improvements; house-bot results do not predict official tournament placement.</p>
+      <div id="leaderboard"></div>
+    </section>
+    <section class="panel" id="tournament-rankings">
+      <div class="panel-heading"><div><p class="eyebrow">AGENT VS AGENT</p><h2>Tournament leaderboard</h2></div><label class="inline-label">Run<select id="tournament-run"><option value="latest">Latest completed tournament</option></select></label></div>
+      <p class="profile-note" id="tournament-note">Tournament standings are separate from house-bot benchmarks.</p>
+      <div id="tournament-board"></div>
+      <p class="profile-note">Downloads preserve agent source, weights, supporting data, and licence notices. Some historical opponents' code is not published.</p>
+    </section>
+    <div class="work-grid">
+      <section class="panel" id="agents">
+        <div class="panel-heading"><div><p class="eyebrow">BUILD YOUR ROSTER</p><h2>Agent registry</h2></div><span id="agent-count" class="tag">0 agents</span></div>
+        <form id="upload-form">
+          <label>Agent name / batch prefix <span class="muted">(optional)</span><input id="agent-name" maxlength="160" placeholder="e.g. river-v3"></label>
+          <label class="file-zone"> <span class="upload-icon">↥</span><strong>Add your agents</strong><span class="muted">Choose multiple .py or .zip files</span><input id="agent-files" type="file" accept=".py,.zip" multiple required></label>
+          <div id="file-preview" class="muted small">Each file is registered as a separate agent.</div>
+          <button class="button secondary" id="upload-button" type="submit">Register agents</button>
+          <div id="upload-status" class="small" role="status" aria-live="polite"></div>
+        </form>
+        <div class="roster-heading"><h3>Available agents</h3><div><button id="select-all" class="text-button" type="button">Select all</button><button id="select-none" class="text-button" type="button">Clear</button></div></div>
+        <div id="agent-list" class="agent-list"></div>
+      </section>
+      <section class="panel" id="launch">
+        <div class="panel-heading"><div><p class="eyebrow">PUT STRATEGY TO WORK</p><h2>Configure a run</h2></div><span class="tag emerald">LOCAL</span></div>
+        <form id="run-form">
+          <fieldset><legend>Run mode</legend><div class="mode-options"><label class="choice"><input type="radio" name="mode" value="benchmark" checked><span><strong>Benchmark</strong><small>Evaluate against profile opponents</small></span></label><label class="choice"><input type="radio" name="mode" value="tournament"><span><strong>Tournament</strong><small>Play selected agents together</small></span></label></div></fieldset>
+          <label>Seeds <input id="seeds" value="arena-1, arena-2, arena-3" placeholder="seed1, seed2, seed3" required><small class="muted">Comma-separated. Reuse seeds for repeatable experiments.</small></label>
+          <div class="form-columns"><label>Hands per game<select id="deals-preset"><option value="100">100 · Competition</option><option value="10">10 · Smoke test</option><option value="custom">Custom · Experimental</option></select></label><label id="custom-deals-label" hidden>Custom hands<input id="custom-deals" type="number" min="1" step="1" value="100"></label></div>
+          <label>Parallel games<input id="parallel-games" type="number" min="1" max="16" step="1" value="4" required><small class="muted">4 is a starting point. Increase for faster batches; use 1 for isolated clock checks. All games in a round finish before regrouping.</small></label>
+          <p class="notice">Benchmarks play each agent against all four house bots, once per seat. Tournaments play four rounds between selected agents. Seeds, hand count and parallel games determine the benchmark profile; the dropdown above only filters results.</p>
+          <div class="launch-summary"><span id="selection-count">0 agents selected</span><span id="run-profile">Profile: default</span></div>
+          <button class="button primary full" id="queue-button" type="submit">Queue run <span>→</span></button>
+          <div id="run-status" role="status" class="small" aria-live="polite"></div>
+        </form>
+      </section>
+    </div>
+    <section class="panel" id="queue"><div class="panel-heading"><div><p class="eyebrow">EXPERIMENT HISTORY</p><h2>Run queue</h2></div><span class="muted small">Auto-refresh · 2 seconds</span></div><div id="run-list"></div></section>
+    <footer>Uses official SDK. Local processes are not the competition container sandbox; run only your own code.</footer>
+  </main>
+</body>
+</html>

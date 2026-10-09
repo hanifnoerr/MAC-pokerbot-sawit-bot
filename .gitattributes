@@ -1,0 +1,7 @@
+# Frozen agent snapshots must retain their exact bytes on every operating system.
+* text=auto eol=lf
+agents/** -text
+dist/** -text
+*.npz -text
+*.gz -text
+*.zip -text

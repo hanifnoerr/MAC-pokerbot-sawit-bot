@@ -1,0 +1,2 @@
+numpy>=1.26,<3
+macpoker @ https://poker.monashcoding.com/dl/macpoker-0.1.0-py3-none-any.whl

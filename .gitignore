@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.py[cod]
+arena/data/
+*.log
+.DS_Store
+.env

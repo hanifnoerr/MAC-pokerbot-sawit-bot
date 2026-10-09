@@ -1,0 +1,25 @@
+{
+  "commit": "449993f78d995c77b72d0bcac418a8507dd6f783",
+  "files": [
+    {
+      "file": "Cash_100_GTO.json",
+      "url": "https://raw.githubusercontent.com/jensbaagaard/poker-practice/449993f78d995c77b72d0bcac418a8507dd6f783/data/openSourcePokerData/Cash_100_GTO.json",
+      "sha256": "74e3add615998d17b58e956ae6641844464238e7520d44c65116ceecd84d6e93"
+    },
+    {
+      "file": "DATA.md",
+      "url": "https://raw.githubusercontent.com/jensbaagaard/poker-practice/449993f78d995c77b72d0bcac418a8507dd6f783/data/openSourcePokerData/README.md",
+      "sha256": "3a21895e3fff3576b77aa89a8d716ce8959cac40911e0ff9f048aac9142e2815"
+    },
+    {
+      "file": "REPOSITORY.md",
+      "url": "https://raw.githubusercontent.com/jensbaagaard/poker-practice/449993f78d995c77b72d0bcac418a8507dd6f783/README.md",
+      "sha256": "8e3097bfd750d4b1150c24c3446eae9b54fc1e1bd061007ca8cde42c1828afb2"
+    },
+    {
+      "file": "build-ranges.mjs",
+      "url": "https://raw.githubusercontent.com/jensbaagaard/poker-practice/449993f78d995c77b72d0bcac418a8507dd6f783/scripts/build-ranges.mjs",
+      "sha256": "4036b5fb25adf7942859eb75d7f027b611f367e26bd9045e6e95c1c68da02f13"
+    }
+  ]
+}

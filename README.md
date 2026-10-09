@@ -8,8 +8,6 @@ My first-place submission to the Monash Association of Coding poker bot competit
 
 **Submitted candidate:** [belief-payoff-fixed-v2.zip](dist/belief-payoff-fixed-v2.zip) · [source code](agents/belief-payoff-fixed-v2-all-opponents/)
 
-The preserved submission ZIP has SHA-256 `ab972e2a31ae1f740fa5dcf12fc23ba9d30a21e183ec5a8d0b8f2f70008564b0`. A previously downloaded ZIP had different archive packaging; this is the preserved local package of the winning agent's code and weights.
-
 ## Competition information
 
 The [MAC Poker Bot competition](https://poker.monashcoding.com/) used no-limit Texas hold'em. The following format is from the organiser's documentation, checked on 9 October 2026.
@@ -24,15 +22,15 @@ The [MAC Poker Bot competition](https://poker.monashcoding.com/) used no-limit T
 | Rounds | Four; regrouping follows cumulative placement points |
 | Clock | 30-second bank per game, plus 0.1 seconds per hand |
 
-Chips determine each game's ranking. Game rankings become points, then the table's total game points become round placement points. Tied positions share their points. Final standings use cumulative placement points, with head-to-head sets for prize ties. See the official [game format](https://docs.poker.monashcoding.com/game-format/), [duplicate deals](https://docs.poker.monashcoding.com/game-format/duplicate-deals/), [scoring](https://docs.poker.monashcoding.com/game-format/scoring/), and [clocks and verdicts](https://docs.poker.monashcoding.com/game-format/clocks/).
-
-The competition runtime provided Python 3.12, NumPy, the SDK, one CPU core, and 512 MB of memory, with no network or GPU. The ZIP limit was 20 MB unpacked and 300 files. See [installation and runtime limits](https://docs.poker.monashcoding.com/installation/) and [competition rules](https://docs.poker.monashcoding.com/rules/).
+I've saved the [competition rules, scoring, and runtime details](docs/competition.md) here in case the official website goes offline.
 
 ## How I developed my agent
 
 My approach started with behavioural cloning, using example decisions that included public [Pluribus hand histories](https://github.com/uoftcprg/phh-dataset). Then I used reinforcement learning with [Proximal Policy Optimisation, or PPO](https://arxiv.org/abs/1707.06347), starting with 300,000 hands and continuing to 600,000.
 
 Yes, I trained on two laptops! While training continued, I also ran local matches and created agent variants (I had made 69 by that point). I tried different tweaks and compared them with another training branch that I continued on the other laptop, reaching around 995,000 hands.
+
+I trained with two to six players at the table, just in case, so I felt more confident it could handle different table sizes.
 
 I tested my bot on the MAC pokerbot leaderboard, and that was when I realised it got confused against a trolling opponent, like one who always bluffed or made irrational decisions. So I thought my agent should have some “faith” of its own. I came across a paper on [Learned Belief Search](https://arxiv.org/abs/2106.09086) and asked Claude to implement it, of course with the magic prompt, “make no mistakes!”
 
@@ -41,6 +39,8 @@ That gave me a separate belief-search candidate. Although I spent a lot of time 
 After the flop, the bot considered opponents' possible hands, how they might respond, and the expected payoff of each action. We also fixed how it calculated payouts when several players stayed in the hand or shared the pot.
 
 Then I tested it against my teammates' bots. There were three of us, and yes, we created our own tournament simulator to figure out which bot to submit. Each person proposed three agents, and this agent could hold its own against the other eight. We chose **Belief payoff fixed v2 – all opponents**, and it won first place!
+
+We actually tied in the final, and our agent won the 1v1 tiebreaker! So I'm glad we prepared for heads-up games too!
 
 Actually, I also created a [v3](agents/belief-payoff-fixed-v3-response-repair/) that fixed some bad behaviour, but we agreed to submit v2. You'll find v3 in my repo too, although whether it performs better depends on the opponents and tournament setup.
 
@@ -64,6 +64,8 @@ Local machine paths have been redacted. Private working directories, virtual env
 ## How to install and run the dashboard
 
 Use **Python 3.12**. No GPU is needed. GitHub hosts the source and archives; run the dashboard locally to browse histories or launch matches.
+
+The official SDK is included in [vendor/](vendor/), so installation doesn't depend on the competition website staying online. NumPy is installed from PyPI.
 
 ```sh
 git clone https://github.com/hanifnoerr/MAC-pokerbot-sawit-bot.git

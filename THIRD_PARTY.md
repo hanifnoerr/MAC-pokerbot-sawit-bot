@@ -22,7 +22,7 @@ These agents are adaptations to MAC's state and action interface, not original c
 
 ## Runtime
 
-The official `macpoker` 0.1.0 SDK is installed from the organiser's public download URL, rather than bundled into this repository. Its package metadata declares MIT. NumPy is installed separately. Consult the corresponding projects for their licence terms.
+An unchanged copy of the official `macpoker` 0.1.0 SDK is kept in [vendor/](vendor/) so installation can continue if the organiser's website closes. That directory records the source and checksum. The wheel's package metadata declares MIT; it contains no separate licence file. NumPy is installed separately.
 
 ## Withheld agents
 

@@ -1,6 +1,6 @@
 # MAC Pokerbot — sawit-bot
 
-My first-place submission to the Monash Association of Coding poker bot competition, together with my local tournament dashboard, saved match history, and agent experiments.
+Our team's submission to the Monash Association of Coding poker bot competition, together with our local tournament dashboard, match history, and agent experiments.
 
 **Official leaderboard name:** `sawit-bot`
 
@@ -10,7 +10,7 @@ My first-place submission to the Monash Association of Coding poker bot competit
 
 ## Competition information
 
-The [MAC Poker Bot competition](https://poker.monashcoding.com/) used no-limit Texas hold'em. The following format is from the organiser's documentation, checked on 9 October 2026.
+The [MAC Poker Bot competition](https://poker.monashcoding.com/) used no-limit Texas hold'em.
 
 | Setting | Official format |
 | --- | --- |
@@ -30,7 +30,7 @@ My approach started with behavioural cloning, using example decisions that inclu
 
 Yes, I trained on two laptops! While training continued, I also ran local matches and created agent variants (I had made 69 by that point). I tried different tweaks and compared them with another training branch that I continued on the other laptop, reaching around 995,000 hands.
 
-I trained with two to six players at the table, just in case, so I felt more confident it could handle different table sizes.
+I trained the model at tables of two to six players, just in case, so I felt confident it could handle different table sizes.
 
 I tested my bot on the MAC pokerbot leaderboard, and that was when I realised it got confused against a trolling opponent, like one who always bluffed or made irrational decisions. So I thought my agent should have some “faith” of its own. I came across a paper on [Learned Belief Search](https://arxiv.org/abs/2106.09086) and asked Claude to implement it, of course with the magic prompt, “make no mistakes!”
 
@@ -40,32 +40,26 @@ After the flop, the bot considered opponents' possible hands, how they might res
 
 Then I tested it against my teammates' bots. There were three of us, and yes, we created our own tournament simulator to figure out which bot to submit. Each person proposed three agents, and this agent could hold its own against the other eight. We chose **Belief payoff fixed v2 – all opponents**, and it won first place!
 
-We actually tied in the final, and our agent won the 1v1 tiebreaker! So I'm glad we prepared for heads-up games too!
+Then we actually got a tie in the final, and our agent won the 1v1 tiebreaker! So the extra preparation paid off!
 
 Actually, I also created a [v3](agents/belief-payoff-fixed-v3-response-repair/) that fixed some bad behaviour, but we agreed to submit v2. You'll find v3 in my repo too, although whether it performs better depends on the opponents and tournament setup.
 
 After all the training, debugging, and testing, I still only know how to code and make an agent. I don't understand poker at all, lol.
 
-The paper above is *Learned Belief Search: Efficiently Improving Policies in Partially Observable Settings* by Hengyuan Hu, Adam Lerer, Noam Brown, and Jakob Foerster (2021). It studies Hanabi; it inspired this work, but this poker bot is an adaptation, not a reproduction of the paper's algorithm or results. Its opponent models and range-based payoff search are also separate from the PPO actor. The approximately 995k hands on the second laptop are my reported continuation count; that laptop's training logs are not included here.
-
 ## What's included
 
-- **58 registered agents**, with source, supporting weights/data, and individually named [ZIP downloads](dist/). The [agent catalogue](AGENTS.md) lists names and hashes.
-- **104 saved run records and 6,764 game histories**, including completed, cancelled, and interrupted runs, plus saved stderr logs. Failed or incomplete runs remain labelled as such.
+- **58 agents**, with source, weights, and [ZIP downloads](dist/). See the [agent catalogue](AGENTS.md).
+- **104 runs and 6,764 game histories**.
 - The dashboard, parallel game runner, scoring code, and tests.
-- The exact preserved local ZIP for `sawit-bot` and the v3 candidate for comparison.
+- The submitted `sawit-bot` ZIP and v3 for comparison.
 
-The export contains the 64 agents still registered in my dashboard on 9 October 2026, minus six teammates' agents. The 69 variants in my story refer to development history, not the number in this export. The registry also includes adapted public baselines and related checkpoints; these are not 58 independent original strategies. Dashboard evaluation does not train agents or update their weights.
-
-**These are my teammates' bots. I haven't asked for their consent to share their code here yet, so I've removed their agent files from this repository:** `agi-m1-outcome-v1`, `agi-s2-river-v1`, `agi-f4-range-strong-v1`, `PPO_5p_600_000_v3`, `PPO_Lookup`, and `PPO_456p_600_000_v3`. Their names and results remain visible in historical matches, but their code, registry entries, and downloads are excluded. Consequently, those historical line-ups cannot be rerun exactly from this repository alone.
-
-Local machine paths have been redacted. Private working directories, virtual environments, runtime request files, and teammates' code are not included. Scores, card histories, seeds, verdicts, and measured timings are preserved. Historical results were produced on my machines; timing can differ on yours. See [the snapshot manifest](snapshot/manifest.json) for exact counts.
+These are my teammates' bots: `agi-m1-outcome-v1`, `agi-s2-river-v1`, `agi-f4-range-strong-v1`, `PPO_5p_600_000_v3`, `PPO_Lookup`, and `PPO_456p_600_000_v3`. I haven't asked for their consent to share their code here yet, so I've removed their agent files. Their names and results remain in the match history.
 
 ## How to install and run the dashboard
 
-Use **Python 3.12**. No GPU is needed. GitHub hosts the source and archives; run the dashboard locally to browse histories or launch matches.
+Use **Python 3.12**.
 
-The official SDK is included in [vendor/](vendor/), so installation doesn't depend on the competition website staying online. NumPy is installed from PyPI.
+The official SDK is saved in [vendor/](vendor/) in case the competition website closes.
 
 ```sh
 git clone https://github.com/hanifnoerr/MAC-pokerbot-sawit-bot.git
@@ -85,7 +79,7 @@ Or on **macOS/Linux**:
 source .venv/bin/activate
 ```
 
-Then install dependencies, restore the public snapshot, and start the dashboard:
+Install dependencies, load the saved history, and start the dashboard:
 
 ```sh
 python -m pip install -r requirements.txt
@@ -93,25 +87,15 @@ python restore_snapshot.py
 python -m arena.server
 ```
 
-Open **http://127.0.0.1:8765/**. If that port is busy, run `python -m arena.server --port 8766` and open the new port. The server binds to your own computer only.
-
-Restoring creates `arena/data/` from the sanitised snapshot. The history expands to roughly 1 GB, so allow disk space for that plus new matches. Restore refuses to overwrite an existing data directory. Once restored, start the server directly on later visits; your new runs persist locally and are ignored by Git.
-
-### Browsing past results
-
-Open the run history, select a benchmark or tournament, and inspect its standings, individual games, and hand replays. The tournament leaderboard defaults to the latest completed tournament; selecting a different run changes the opponent field and may change the ranking. Historical opponent names can appear even when their source is not published. Download buttons are available only for agents included in this release.
-
 ### Benchmark versus tournament
 
-**Benchmark** tests each selected agent separately against four simple house bots: always call, check/fold, all-in, and random. It uses five seats and one seat rotation per agent for each seed. This is useful for quick comparisons and finding crashes or obvious weaknesses. It is not a prediction of the official leaderboard.
+**Benchmark** tests each agent against four house bots: always call, check/fold, all-in, and random. Each agent plays from every seat for each seed.
 
-**Tournament** pits your selected agents against one another over four rounds. It uses duplicate deals and seat rotations, converts chip rankings into game points and then placement points, and regroups tables between rounds. Prize ties use local head-to-head playoffs. Select 4, 5, or 6 agents for one competition-sized table. Larger fields are partitioned into tables of 4–6 wherever possible; seven entrants use a seven-player local table, so avoid that size when matching the final format.
+**Tournament** runs the selected agents against each other over four rounds, using duplicate deals, rotating seats, and placement points. Select 4–6 agents for a table matching the competition format.
 
-The dashboard's **Placement score** is the average game placement points divided by table size, expressed as a percentage, excluding playoffs. It is not a win rate and does not replace tournament placement points. **mbb/hand** means thousandths of a big blind per hand, a chip-profit measure.
+**Placement score** averages each game's placement points divided by table size, excluding playoffs. **mbb/hand** measures profit in thousandths of a big blind per hand.
 
-Choose agents, set hand count and seeds, and queue the run. Use 100 hands for competition-style games. **Parallel games** runs independent games concurrently; rounds still wait for all their games before regrouping. More workers can reduce elapsed time but also increase CPU contention. Use one worker when checking clock reliability. Run only trusted agent code: this local runner does not reproduce the organiser's container isolation, memory cap, or CPU restrictions.
-
-The dashboard follows the published format, with explicit local choices for table partitioning, fully tied regrouping, and multiway playoffs. It is not the organiser's exact scheduler. Match histories are spectator records with hole cards; the runner does not pass those saved histories to agents as inputs.
+Use 100 hands per game. **Parallel games** controls how many games run at once; use one for isolated clock checks.
 
 ### Tests
 
@@ -120,16 +104,13 @@ python -m unittest discover -s arena/tests -v
 python -m unittest discover -s tests -v
 ```
 
-This repository publishes executable candidates and evaluation history. It does not include the complete training environments or claim to reproduce every training run from scratch.
-
 ## References and credits
 
 - [Official MAC Poker Bot documentation](https://docs.poker.monashcoding.com/).
-- Hu et al., [Learned Belief Search: Efficiently Improving Policies in Partially Observable Settings](https://arxiv.org/abs/2106.09086), 2021. Inspiration for exploring belief-based search.
-- Schulman et al., [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347), 2017. The RL algorithm used during development.
-- [PHH dataset](https://github.com/uoftcprg/phh-dataset/tree/e47fbd5816372360bade4de5d712346fe1bb70f6). Public hand histories used in behavioural-cloning experiments; no original Pluribus model weights are included.
-- [poker-practice preflop data](https://github.com/jensbaagaard/poker-practice/tree/449993f78d995c77b72d0bcac418a8507dd6f783/data/openSourcePokerData). Source-labelled solver charts used for supported preflop situations; the bot is not a complete GTO solver.
-- Claude and Codex assisted with implementation, debugging, and evaluation. The final bot makes decisions locally without calling either service.
-- Adapted public baselines retain their upstream notices. See [THIRD_PARTY.md](THIRD_PARTY.md) for sources and licensing scope.
+- Hu et al., [Learned Belief Search: Efficiently Improving Policies in Partially Observable Settings](https://arxiv.org/abs/2106.09086), 2021.
+- Schulman et al., [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347), 2017.
+- [PHH dataset](https://github.com/uoftcprg/phh-dataset/tree/e47fbd5816372360bade4de5d712346fe1bb70f6) — public Pluribus hand histories.
+- [poker-practice](https://github.com/jensbaagaard/poker-practice/tree/449993f78d995c77b72d0bcac418a8507dd6f783/data/openSourcePokerData) — preflop charts.
+- [Third-party sources and licences](THIRD_PARTY.md).
 
 P.S. My bot’s name, **Sawit**, comes from the Indonesian and Malay word for oil palm (*Elaeis guineensis*). I chose it with the forest burning associated with oil palm plantations in mind. No forests were burned in the making of this bot. Just two laptops working overtime, lol.

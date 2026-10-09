@@ -1,4 +1,4 @@
-# MAC Pokerbot — sawit-bot
+# MAC Pokerbot: sawit-bot
 
 Our team's submission to the Monash Association of Coding poker bot competition, together with our local tournament dashboard, match history, and agent experiments.
 
@@ -109,8 +109,8 @@ python -m unittest discover -s tests -v
 - [Official MAC Poker Bot documentation](https://docs.poker.monashcoding.com/).
 - Hu et al., [Learned Belief Search: Efficiently Improving Policies in Partially Observable Settings](https://arxiv.org/abs/2106.09086), 2021.
 - Schulman et al., [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347), 2017.
-- [PHH dataset](https://github.com/uoftcprg/phh-dataset/tree/e47fbd5816372360bade4de5d712346fe1bb70f6) — public Pluribus hand histories.
-- [poker-practice](https://github.com/jensbaagaard/poker-practice/tree/449993f78d995c77b72d0bcac418a8507dd6f783/data/openSourcePokerData) — preflop charts.
+- [PHH dataset](https://github.com/uoftcprg/phh-dataset/tree/e47fbd5816372360bade4de5d712346fe1bb70f6) (public Pluribus hand histories).
+- [poker-practice](https://github.com/jensbaagaard/poker-practice/tree/449993f78d995c77b72d0bcac418a8507dd6f783/data/openSourcePokerData) (preflop charts).
 - [Third-party sources and licences](THIRD_PARTY.md).
 
 P.S. My bot’s name, **Sawit**, comes from the Indonesian and Malay word for oil palm (*Elaeis guineensis*). I chose it with the forest burning associated with oil palm plantations in mind. No forests were burned in the making of this bot. Just two laptops working overtime, lol.

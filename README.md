@@ -28,7 +28,7 @@ I've saved the [competition rules, scoring, and runtime details](docs/competitio
 
 My approach started with behavioural cloning, using example decisions that included public [Pluribus hand histories](https://github.com/uoftcprg/phh-dataset). Then I used reinforcement learning with [Proximal Policy Optimisation, or PPO](https://arxiv.org/abs/1707.06347), starting with 300,000 hands and continuing to 600,000.
 
-Yes, I trained on two laptops! While training continued, I also ran local matches and created agent variants (I had made 69 by that point). I tried different tweaks and compared them with another training branch that I continued on the other laptop, reaching around 995,000 hands.
+I used two laptops while developing the bot, so I could keep training on one while running local matches and testing different agent variants on the other. I had made 69 variants by that point. I tried different tweaks and compared them with another training branch that I continued on the other laptop, reaching around 995,000 hands.
 
 I trained the model at tables of two to six players, just in case, so I felt confident it could handle different table sizes.
 
@@ -113,4 +113,4 @@ python -m unittest discover -s tests -v
 - [poker-practice](https://github.com/jensbaagaard/poker-practice/tree/449993f78d995c77b72d0bcac418a8507dd6f783/data/openSourcePokerData) (preflop charts).
 - [Third-party sources and licences](THIRD_PARTY.md).
 
-P.S. My bot’s name, **Sawit**, comes from the Indonesian and Malay word for oil palm (*Elaeis guineensis*). I chose it with the forest burning associated with oil palm plantations in mind. No forests were burned in the making of this bot. Just two laptops working overtime, lol.
+P.S. My bot’s name, **Sawit**, comes from the Indonesian and Malay word for oil palm (*Elaeis guineensis*). I chose it with the forest burning associated with oil palm plantations in mind. The fires were still happening at the time, and the haze was affecting three neighbouring countries. No forests were burned in the making of this bot. Just two laptops working overtime, lol.

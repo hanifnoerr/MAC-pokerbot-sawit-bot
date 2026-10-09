@@ -24,6 +24,8 @@ The [MAC Poker Bot competition](https://poker.monashcoding.com/) used no-limit T
 
 I've saved the [competition rules, scoring, and runtime details](docs/competition.md) here in case the official website goes offline.
 
+The [official results](docs/results.md) are saved here too, including the final standings, all four rounds, and our first-place tiebreaker.
+
 ## How I developed my agent
 
 My approach started with behavioural cloning, using example decisions that included public [Pluribus hand histories](https://github.com/uoftcprg/phh-dataset). Then I used reinforcement learning with [Proximal Policy Optimisation, or PPO](https://arxiv.org/abs/1707.06347), starting with 300,000 hands and continuing to 600,000.
